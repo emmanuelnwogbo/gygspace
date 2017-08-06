@@ -37,6 +37,7 @@ passport.use(
 			});
 		}*/
 		async (accessToken, refreshToken, profile, done) => {
+			//console.log(profile);//user's details
 			const existingUser = await User.findOne({ googleId: profile.id });
 
 			if (existingUser) {
