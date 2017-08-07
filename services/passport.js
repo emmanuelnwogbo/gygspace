@@ -1,6 +1,8 @@
 const passport = require("passport");
 const mongoose = require("mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const TwitterStrategy = require("passport-twitter").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 
 const keys = require("../config/keys");
 
@@ -45,6 +47,74 @@ passport.use(
 			}
 
 			const user = await new User({ googleId: profile.id }).save();
+			done(null, user);
+		}
+	)
+);
+
+passport.use(
+	new TwitterStrategy(
+		{
+			consumerKey: keys.twitterConsumerKey,
+			consumerSecret: keys.twitterConsumerSecret,
+			callbackURL: "http://localhost:3030/auth/twitter/callback",
+			proxy: true
+		},
+		/*(accessToken, refreshToken, profile, done) => {
+			User.findOne({ googleId: profile.id }).then(existingUser => {
+				if (existingUser) {
+					//do something here
+					done(null, existingUser);
+				} else {
+					new User({ googleId: profile.id })
+						.save()
+						.then(user => done(null, user));
+				}
+			});
+		}*/
+		async (accessToken, refreshToken, profile, done) => {
+			//console.log(profile); //user's details
+			const existingUser = await User.findOne({ twitterId: profile.id });
+
+			if (existingUser) {
+				return done(null, existingUser);
+			}
+
+			const user = await new User({ twitterId: profile.id }).save();
+			done(null, user);
+		}
+	)
+);
+
+passport.use(
+	new FacebookStrategy(
+		{
+			clientID: keys.facebookAppID,
+			clientSecret: keys.facebookAppSecret,
+			callbackURL: "http://localhost:3030/auth/facebook/callback",
+			proxy: true
+		},
+		/*(accessToken, refreshToken, profile, done) => {
+			User.findOne({ googleId: profile.id }).then(existingUser => {
+				if (existingUser) {
+					//do something here
+					done(null, existingUser);
+				} else {
+					new User({ googleId: profile.id })
+						.save()
+						.then(user => done(null, user));
+				}
+			});
+		}*/
+		async (accessToken, refreshToken, profile, done) => {
+			//console.log(profile);//user's details
+			const existingUser = await User.findOne({ facebookId: profile.id });
+
+			if (existingUser) {
+				return done(null, existingUser);
+			}
+
+			const user = await new User({ facebookId: profile.id }).save();
 			done(null, user);
 		}
 	)

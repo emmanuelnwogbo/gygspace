@@ -16,6 +16,36 @@ module.exports = app => {
 		}
 	);
 
+	app.get(
+		"/auth/twitter",
+		passport.authenticate("twitter", {
+			scope: ["profile", "email"]
+		})
+	);
+
+	app.get(
+		"/auth/twitter/callback",
+		passport.authenticate("twitter"),
+		(req, res) => {
+			res.send("done");
+		}
+	);
+
+	app.get(
+		"/auth/facebook",
+		passport.authenticate("facebook", {
+			scope: ["profile", "email"]
+		})
+	);
+
+	app.get(
+		"/auth/facebook/callback",
+		passport.authenticate("facebook"),
+		(req, res) => {
+			res.send("done");
+		}
+	);
+
 	app.get("/api/logout", (req, res) => {
 		//passport also adds a couple of other properties to the
 		//req object as well that we can use to manipulate the
