@@ -23,7 +23,7 @@ passport.use(
 		{
 			clientID: keys.googleClientID,
 			clientSecret: keys.googleClientSecret,
-			callbackURL: "http://localhost:3030/auth/google/callback",
+			callbackURL: "/auth/google/callback",
 			proxy: true
 		},
 		/*(accessToken, refreshToken, profile, done) => {
@@ -57,7 +57,7 @@ passport.use(
 		{
 			consumerKey: keys.twitterConsumerKey,
 			consumerSecret: keys.twitterConsumerSecret,
-			callbackURL: "http://localhost:3030/auth/twitter/callback",
+			callbackURL: "/auth/twitter/callback",
 			proxy: true
 		},
 		/*(accessToken, refreshToken, profile, done) => {
@@ -91,7 +91,7 @@ passport.use(
 		{
 			clientID: keys.facebookAppID,
 			clientSecret: keys.facebookAppSecret,
-			callbackURL: "http://localhost:3030/auth/facebook/callback",
+			callbackURL: "/auth/facebook/callback",
 			proxy: true
 		},
 		/*(accessToken, refreshToken, profile, done) => {
