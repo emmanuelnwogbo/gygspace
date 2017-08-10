@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import ReactModal from "react-modal";
 
+import * as actions from "../actions";
+
 import Socialbuttons from "./Socialbuttons";
 
 class Header extends Component {
@@ -22,6 +24,13 @@ class Header extends Component {
 
 	handleCloseModal() {
 		this.setState({ showModal: false });
+	}
+
+	getToken() {
+		if (this.props.auth) {
+			let userid = this.props.auth._id;
+			this.props.fetchTokenFromApiOne(userid);
+		}
 	}
 
 	renderButtons() {
@@ -60,7 +69,8 @@ class Header extends Component {
 	}
 
 	render() {
-		console.log(this.props);
+		//console.log(this.props);
+		this.getToken();
 		return (
 			<div>
 				<nav>
@@ -93,4 +103,4 @@ function mapStateToProps({ auth }) {
 	return { auth };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, actions)(Header);

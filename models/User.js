@@ -7,7 +7,8 @@ const userSchema = new Schema({
 	twitterId: String,
 	displayphoto: String,
 	username: String,
-	_profile: { type: Schema.Types.ObjectId, ref: "Profile" }
+	_profile: { type: Schema.Types.ObjectId, ref: "Profile" },
+	userToken: String
 });
 
 mongoose.model("users", userSchema);

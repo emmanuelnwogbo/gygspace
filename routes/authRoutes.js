@@ -50,6 +50,9 @@ module.exports = app => {
 		//passport also adds a couple of other properties to the
 		//req object as well that we can use to manipulate the
 		//authentication status of the user; one of them is req.logout
+		req.user.userToken = null;
+		req.user.save();
+
 		req.logout();
 		//res.send(req.user);
 		res.redirect("/");
@@ -57,6 +60,7 @@ module.exports = app => {
 
 	app.get("/api/current_user", (req, res) => {
 		//res.send(req.session);
+		//console.log(req.session);
 		res.send(req.user);
 	});
 };
