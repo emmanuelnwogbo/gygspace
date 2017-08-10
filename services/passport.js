@@ -23,8 +23,8 @@ passport.use(
 		{
 			clientID: keys.googleClientID,
 			clientSecret: keys.googleClientSecret,
-			callbackURL: "/auth/google/callback",
-			proxy: true
+			callbackURL: `${keys.callbackURL}/auth/google/callback`
+			//proxy: true
 		},
 		/*(accessToken, refreshToken, profile, done) => {
 			User.findOne({ googleId: profile.id }).then(existingUser => {
@@ -57,8 +57,8 @@ passport.use(
 		{
 			consumerKey: keys.twitterConsumerKey,
 			consumerSecret: keys.twitterConsumerSecret,
-			callbackURL: "/auth/twitter/callback",
-			proxy: true
+			callbackURL: `${keys.callbackURL}/auth/twitter/callback`
+			//proxy: true
 		},
 		/*(accessToken, refreshToken, profile, done) => {
 			User.findOne({ googleId: profile.id }).then(existingUser => {
@@ -91,8 +91,8 @@ passport.use(
 		{
 			clientID: keys.facebookAppID,
 			clientSecret: keys.facebookAppSecret,
-			callbackURL: "/auth/facebook/callback",
-			proxy: true
+			callbackURL: `${keys.callbackURL}/auth/facebook/callback`
+			//proxy: true
 		},
 		/*(accessToken, refreshToken, profile, done) => {
 			User.findOne({ googleId: profile.id }).then(existingUser => {
